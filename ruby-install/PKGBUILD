@@ -3,6 +3,7 @@ pkgver=0.6.0
 pkgrel=1
 pkgdesc="Install Ruby, JRuby, Rubinius, MagLev, or mruby"
 arch=('any')
+depends=('libyaml' 'gdbm')
 url="https://github.com/postmodern/ruby-install"
 license=('MIT')
 
