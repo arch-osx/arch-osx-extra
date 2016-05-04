@@ -1,0 +1,58 @@
+pkgbase=python3-setuptools
+pkgname=('python3-setuptools')
+pkgver=21.0.0
+pkgrel=1
+pkgdesc="Easily download, build, install, upgrade, and uninstall Python packages"
+arch=('any')
+license=('PSF')
+url="http://pypi.python.org/pypi/setuptools"
+makedepends=('python3-packaging' 'git')
+checkdepends=('python3-mock' 'python3-pytest-runner' 'git')
+source=("git+https://github.com/pypa/setuptools.git#tag=v$pkgver")
+sha512sums=('SKIP')
+
+prepare() {
+  # Remove vendored packages
+  rm -rv setuptools/pkg_resources/_vendor
+
+  # Remove post-release tag since we are using stable tags
+  sed -i~ \
+      -e '/tag_build = .post/d' \
+      -e '/tag_date = 1/d' \
+      setuptools/setup.cfg
+
+  #cp -a setuptools{,-py2}
+
+  cd "$srcdir"/setuptools
+  sed -i -e "s|^#\!.*/usr/bin/env python|#!/usr/bin/env python3|" setuptools/command/easy_install.py
+
+  #cd "$srcdir"/setuptools-py2
+  #sed -i -e "s|^#\!.*/usr/bin/env python|#!/usr/bin/env python2|" setuptools/command/easy_install.py
+}
+
+build() {
+  cd "$srcdir"/setuptools
+  python3 setup.py build
+
+  #cd "$srcdir"/setuptools-py2
+  #python2 setup.py build
+}
+
+check() {
+  # Workaround UTF-8 tests by setting LC_CTYPE
+
+  cd "$srcdir"/setuptools
+  LC_CTYPE=en_US.utf8 python3 setup.py ptr
+
+  #cd "$srcdir"/setuptools-py2
+  #LC_CTYPE=en_US.utf8 python2 setup.py ptr
+}
+
+package_python3-setuptools() {
+  depends=('python3-packaging')
+  provides=('python3-distribute')
+  replaces=('python3-distribute')
+
+  cd "$srcdir"/setuptools
+  python3 setup.py install --prefix=/usr/local --root="$pkgdir" --optimize=1 --skip-build
+}
