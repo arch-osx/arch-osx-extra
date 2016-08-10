@@ -1,0 +1,32 @@
+pkgname=fish
+pkgver=2.3.1
+pkgrel=1
+arch=('x86_64')
+url="https://fishshell.com"
+license=('GPL')
+depends=('pcre')
+source=(https://fishshell.com/files/2.3.1/fish-2.3.1.tar.gz
+        makefile.patch)
+sha256sums=('328acad35d131c94118c1e187ff3689300ba757c4469c8cc1eaa994789b98664'
+            '36574c1447201058b027ca0a93fc689457edfd48fb439530e41766043f0012bf'
+    )
+
+prepare() {
+    cd $pkgname-$pkgver
+
+    # Skip extra dirs creation during install phase patch for current stable. To be removed on the next fish release.
+    # As discussed in https://github.com/Homebrew/homebrew-core/pull/2813
+    # Use part of https://github.com/fish-shell/fish-shell/commit/9abbc5f upstream commit and patch the makefile.
+    patch -p1 -i $srcdir/makefile.patch
+}
+
+build() {
+    cd $pkgname-$pkgver
+    ./configure --prefix=/usr/local
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+    make DESTDIR="$pkgdir" install
+}
