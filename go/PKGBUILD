@@ -1,31 +1,27 @@
 pkgname=('go' 'go-tools')
 epoch=2
-pkgver=1.6
+pkgver=1.7
 pkgrel=1
 arch=('x86_64')
 url='http://golang.org/'
 license=('BSD')
 #makedepends=('inetutils' 'git' 'go')
 options=('!strip' 'staticlibs')
-source=(https://storage.googleapis.com/golang/go1.6.src.tar.gz
-        https://storage.googleapis.com/golang/go1.4.2.darwin-amd64-osx10.8.tar.gz)
-noextract=("go1.4.2.darwin-amd64-osx10.8.tar.gz")
-sha256sums=("a96cce8ce43a9bf9b2a4c7d470bc7ee0cb00410da815980681c8353218dcf146"
-            "c2f53983fc8fe5159d811081022ebc401b8111759ce008f91193abdae82cdbc9")
+source=(https://storage.googleapis.com/golang/go1.7.src.tar.gz
+        https://storage.googleapis.com/golang/go1.7.darwin-amd64.tar.gz)
+noextract=("go1.7.darwin-amd64.tar.gz")
+sha256sums=("72680c16ba0891fcf2ccf46d0f809e4ecf47bbf889f5d884ccb54c5e9a17e1c0"
+            "51d905e0b43b3d0ed41aaf23e19001ab4bc3f96c3ca134b48f7892485fc52961")
 _gourl=golang.org/x/tools/cmd
 
 prepare() {
   cd $srcdir
   mkdir -p gobootstrap
-  bsdtar -C gobootstrap -xz --strip-components 1 -f go1.4.2.darwin-amd64-osx10.8.tar.gz
+  bsdtar -C gobootstrap -xz --strip-components 1 -f go1.7.darwin-amd64.tar.gz
 }
 
 build() {
-  export GOROOT_FINAL="$srcdir/gobootstrap"
-  cd "$srcdir/gobootstrap/src"
-  bash make.bash --no-clean
-
-  export GOROOT_BOOTSTRAP="$GOROOT_FINAL"
+  export GOROOT_BOOTSTRAP="$srcdir/gobootstrap"
 
   cd "$srcdir/go/src"
   export GOROOT_FINAL="/usr/local/lib/go"
