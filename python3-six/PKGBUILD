@@ -27,14 +27,14 @@ package_python3-six() {
   depends=('python3')
   cd $srcdir/six-$pkgver 
   python3 setup.py install --root "${pkgdir}" --optimize=1
-  install -dm755 "${pkgdir}/usr/local/share/licenses/${pkgname}"
-  install -m644 "${srcdir}/six-${pkgver}/LICENSE" "${pkgdir}/usr/local/share/licenses/${pkgname}/LICENSE"
+  install -dm755 "${pkgdir}/opt/arch/share/licenses/${pkgname}"
+  install -m644 "${srcdir}/six-${pkgver}/LICENSE" "${pkgdir}/opt/arch/share/licenses/${pkgname}/LICENSE"
 }
 
 #package_python2-six() {
 #  depends=('python2')
 #  cd $srcdir/six2-$pkgver 
 #  python2 setup.py install --root "${pkgdir}" --optimize=1
-#  install -dm755 "${pkgdir}/usr/local/share/licenses/${pkgname}"
-#  install -m644 "${srcdir}/six-${pkgver}/LICENSE" "${pkgdir}/usr/local/share/licenses/${pkgname}/LICENSE"
+#  install -dm755 "${pkgdir}/opt/arch/share/licenses/${pkgname}"
+#  install -m644 "${srcdir}/six-${pkgver}/LICENSE" "${pkgdir}/opt/arch/share/licenses/${pkgname}/LICENSE"
 #}

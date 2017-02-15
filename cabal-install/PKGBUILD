@@ -23,20 +23,20 @@ build() {
 package() {
   cd "${srcdir}/$pkgname-$pkgver"
   install -d -m755 \
-    "$pkgdir/usr/local/bin/"
+    "$pkgdir/opt/arch/bin/"
 
   install -m755 .cabal-sandbox/bin/cabal \
-    "$pkgdir/usr/local/bin/cabal"
+    "$pkgdir/opt/arch/bin/cabal"
 
   install -d -m755 \
-    "${pkgdir}/usr/local/share/licenses/${pkgname}"
+    "${pkgdir}/opt/arch/share/licenses/${pkgname}"
 
   install -m644 LICENSE \
-    "${pkgdir}/usr/local/share/licenses/${pkgname}/LICENSE"
+    "${pkgdir}/opt/arch/share/licenses/${pkgname}/LICENSE"
 
   install -d -m755 \
-    "${pkgdir}/usr/local/share/bash-completion/completions"
+    "${pkgdir}/opt/arch/share/bash-completion/completions"
 
   install -m644 bash-completion/cabal \
-    "${pkgdir}/usr/local/share/bash-completion/completions/cabal"
+    "${pkgdir}/opt/arch/share/bash-completion/completions/cabal"
 }

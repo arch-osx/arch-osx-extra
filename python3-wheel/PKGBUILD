@@ -30,11 +30,11 @@ check() {
 
   cd "$srcdir/wheel-$pkgver"
   python3 setup.py install --root="$PWD/tmp_install" --optimize=1
-  PYTHONPATH="$PWD/tmp_install/usr/local/lib/python3.5/site-packages:$PYTHONPATH" py.test wheel
+  PYTHONPATH="$PWD/tmp_install/opt/arch/lib/python3.5/site-packages:$PYTHONPATH" py.test wheel
 
   #cd "$srcdir/wheel-$pkgver-py2"
   #python2 setup.py install --root="$PWD/tmp_install" --optimize=1
-  #PYTHONPATH="$PWD/tmp_install/usr/local/lib/python2.7/site-packages:$PYTHONPATH" py.test2 wheel
+  #PYTHONPATH="$PWD/tmp_install/opt/arch/lib/python2.7/site-packages:$PYTHONPATH" py.test2 wheel
 }
 
 package_python3-wheel() {
@@ -43,8 +43,8 @@ package_python3-wheel() {
 
   cd "$srcdir/$_pypiname-$pkgver"
   python3 setup.py install --root="$pkgdir/" --optimize=1
-  install -d -m755 "$pkgdir/usr/local/share/licenses/$pkgname"
-  install -m644 LICENSE.txt "$pkgdir/usr/local/share/licenses/$pkgname/LICENSE.txt"
+  install -d -m755 "$pkgdir/opt/arch/share/licenses/$pkgname"
+  install -m644 LICENSE.txt "$pkgdir/opt/arch/share/licenses/$pkgname/LICENSE.txt"
 }
 
 #package_python2-wheel() {
@@ -53,6 +53,6 @@ package_python3-wheel() {
 #
 #  cd "$srcdir/$_pypiname-$pkgver"
 #  python2 setup.py install --root="$pkgdir/" --optimize=1
-#  install -d -m755 "$pkgdir/usr/local/share/licenses/$pkgname"
-#  install -m644 LICENSE.txt "$pkgdir/usr/local/share/licenses/$pkgname/LICENSE.txt"
+#  install -d -m755 "$pkgdir/opt/arch/share/licenses/$pkgname"
+#  install -m644 LICENSE.txt "$pkgdir/opt/arch/share/licenses/$pkgname/LICENSE.txt"
 #}

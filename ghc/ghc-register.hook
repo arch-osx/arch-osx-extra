@@ -2,7 +2,7 @@
 Type = File
 Operation = Install
 Operation = Upgrade
-Target = usr/local/share/haskell/register/*.sh
+Target = opt/arch/share/haskell/register/*.sh
 
 [Action]
 Description = Registering Haskell modules...

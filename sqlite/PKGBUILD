@@ -34,7 +34,7 @@ build() {
 
   # build sqlite
   cd sqlite-src-$_srcver
-  ./configure --prefix=/usr/local \
+  ./configure --prefix=/opt/arch \
 	--disable-static \
 	--disable-amalgamation \
 	--enable-fts3 \
@@ -42,7 +42,7 @@ build() {
 	--enable-fts5 \
 	--enable-rtree \
 	--enable-json1
-	TCLLIBDIR=/usr/local/lib/sqlite$pkgver
+	TCLLIBDIR=/opt/arch/lib/sqlite$pkgver
 
   make
 
@@ -60,19 +60,19 @@ package_sqlite() {
   cd sqlite-src-$_srcver
   make DESTDIR=${pkgdir} install
 
-  install -m755 showdb showjournal showstat4 showwal sqldiff ${pkgdir}/usr/local/bin/
+  install -m755 showdb showjournal showstat4 showwal sqldiff ${pkgdir}/opt/arch/bin/
 
   # install manpage
-  install -m755 -d ${pkgdir}/usr/local/share/man/man1
-  install -m644 sqlite3.1 ${pkgdir}/usr/local/share/man/man1/
+  install -m755 -d ${pkgdir}/opt/arch/share/man/man1
+  install -m644 sqlite3.1 ${pkgdir}/opt/arch/share/man/man1/
 
   # license - no linking required because pkgbase=pkgname
-  install -d -m755 ${pkgdir}/usr/local/share/licenses/${pkgbase}
-  install -m644 ${srcdir}/license.txt ${pkgdir}/usr/local/share/licenses/${pkgbase}/license.txt
+  install -d -m755 ${pkgdir}/opt/arch/share/licenses/${pkgbase}
+  install -m644 ${srcdir}/license.txt ${pkgdir}/opt/arch/share/licenses/${pkgbase}/license.txt
 
   # split out tcl extension
   #mkdir $srcdir/tcl
-  #mv $pkgdir/usr/local/lib/sqlite* $srcdir/tcl
+  #mv $pkgdir/opt/arch/lib/sqlite* $srcdir/tcl
   rm -rf $pkgdir/System
 }
 
@@ -83,16 +83,16 @@ package_sqlite() {
 # provides=("sqlite3-tcl=$pkgver")
 # replaces=("sqlite3-tcl")
 #
-#  install -m755 -d ${pkgdir}/usr/local/lib
-#  mv $srcdir/tcl/* ${pkgdir}/usr/local/lib
+#  install -m755 -d ${pkgdir}/opt/arch/lib
+#  mv $srcdir/tcl/* ${pkgdir}/opt/arch/lib
 #
 #  # install manpage
-#  install -m755 -d ${pkgdir}/usr/local/share/man/mann
-#  install -m644 ${srcdir}/sqlite-src-$_srcver/autoconf/tea/doc/sqlite3.n ${pkgdir}/usr/local/share/man/mann/
+#  install -m755 -d ${pkgdir}/opt/arch/share/man/mann
+#  install -m644 ${srcdir}/sqlite-src-$_srcver/autoconf/tea/doc/sqlite3.n ${pkgdir}/opt/arch/share/man/mann/
 #
 #  # link license
-#  install -m755 -d ${pkgdir}/usr/local/share/licenses
-#  ln -sf /usr/local/share/licenses/${pkgbase} "${pkgdir}/usr/local/share/licenses/${pkgname}"
+#  install -m755 -d ${pkgdir}/opt/arch/share/licenses
+#  ln -sf /opt/arch/share/licenses/${pkgbase} "${pkgdir}/opt/arch/share/licenses/${pkgname}"
 #}
 #
 #package_sqlite-analyzer() {
@@ -101,8 +101,8 @@ package_sqlite() {
 # depends=('sqlite' 'tcl')
 #
 #  cd sqlite-src-$_srcver
-#  install -m755 -d ${pkgdir}/usr/local/bin
-#  install -m755 sqlite3_analyzer ${pkgdir}/usr/local/bin/
+#  install -m755 -d ${pkgdir}/opt/arch/bin
+#  install -m755 sqlite3_analyzer ${pkgdir}/opt/arch/bin/
 #}
 
 package_sqlite-doc() {
@@ -113,6 +113,6 @@ package_sqlite-doc() {
  replaces=("sqlite3-doc")
 
   cd sqlite-doc-${_docver}
-  mkdir -p ${pkgdir}/usr/local/share/doc/${pkgbase}
-  cp -R *  ${pkgdir}/usr/local/share/doc/${pkgbase}/
+  mkdir -p ${pkgdir}/opt/arch/share/doc/${pkgbase}
+  cp -R *  ${pkgdir}/opt/arch/share/doc/${pkgbase}/
 }

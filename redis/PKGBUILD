@@ -7,7 +7,7 @@ url='http://redis.io/'
 license=('BSD')
 #depends=('jemalloc' 'grep' 'shadow')
 depends=('jemalloc' 'grep')
-backup=('usr/local/etc/redis.conf')
+backup=('opt/arch/etc/redis.conf')
 install=redis.install
 source=(http://download.redis.io/releases/redis-$pkgver.tar.gz
         redis.conf-sane-defaults.patch
@@ -15,9 +15,9 @@ source=(http://download.redis.io/releases/redis-$pkgver.tar.gz
         org.arch-osx.redis.plist
         )
 md5sums=('84ed3f486e7a6f0ebada6917370f3532'
-         'd8e38d4d8676c898bdca4bbcb3ea2c3a'
-         'c0a6beb4c66d80ad39aed13494d7bfe6'
-         '003b3cb719b058be518cf5141f2e2483')
+         '051f072d6fe378b29799a0333d979f1d'
+         '4a10f51be7e7eac5160044c57361e7c3'
+         '3dd49fda5e65f2e13bb7a40a97c353f3')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -36,14 +36,14 @@ build() {
 
 package() {
   cd $pkgname-$pkgver
-  make PREFIX="$pkgdir"/usr/local install
+  make PREFIX="$pkgdir"/opt/arch install
 
-  install -dm755 "$pkgdir"/usr/local/share/licenses/redis
-  install -m644 COPYING "$pkgdir"/usr/local/share/licenses/redis/LICENSE
-  install -dm755 "$pkgdir"/usr/local/etc
-  install -m644 redis.conf "$pkgdir"/usr/local/etc/redis.conf
+  install -dm755 "$pkgdir"/opt/arch/share/licenses/redis
+  install -m644 COPYING "$pkgdir"/opt/arch/share/licenses/redis/LICENSE
+  install -dm755 "$pkgdir"/opt/arch/etc
+  install -m644 redis.conf "$pkgdir"/opt/arch/etc/redis.conf
 
-  ln -sf redis-server $pkgdir/usr/local/bin/redis-sentinel
+  ln -sf redis-server $pkgdir/opt/arch/bin/redis-sentinel
 
   mkdir -p "$pkgdir"/Library/LaunchDaemons
   install -m644 "$srcdir"/org.arch-osx.redis.plist "$pkgdir"/Library/LaunchDaemons

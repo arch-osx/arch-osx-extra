@@ -24,7 +24,7 @@ build() {
   export GOROOT_BOOTSTRAP="$srcdir/gobootstrap"
 
   cd "$srcdir/go/src"
-  export GOROOT_FINAL="/usr/local/lib/go"
+  export GOROOT_FINAL="/opt/arch/lib/go"
   export CGO_ENABLED=1
 
   # Crosscompilation for various platforms. This is not strictly required as the
@@ -56,7 +56,7 @@ build() {
   done
 
   # Distribution tools
-  for tool in benchcmp bundle callgraph digraph eg fiximports html2article oracle present ssadump stress stringer ; do
+  for tool in benchcmp bundle callgraph digraph eg fiximports html2article  present ssadump stress stringer ; do
     $GOROOT/bin/go get -d golang.org/x/tools/cmd/$tool
     $GOROOT/bin/go build -v -x -o $GOPATH/pkg/tool/${GOOS}_$GOARCH/$tool golang.org/x/tools/cmd/$tool
   done
@@ -74,7 +74,7 @@ check() {
 
   # bundle does not compile with 1.6
   for tool in godoc goimports gomvpkg gorename gotype \
-    benchcmp callgraph digraph eg fiximports html2article oracle present ssadump stress stringer; do
+    benchcmp callgraph digraph eg fiximports html2article present ssadump stress stringer; do
     GOPATH="$srcdir" $GOROOT/bin/go test -v -x $_gourl/$tool
   done
 
@@ -98,37 +98,37 @@ package_go() {
   export GOOS=darwin
   export GOARCH=amd64
 
-  install -d -m755 "$pkgdir/usr/local/share/licenses/go"
-  install -m644 LICENSE "$pkgdir/usr/local/share/licenses/go/LICENSE"
+  install -d -m755 "$pkgdir/opt/arch/share/licenses/go"
+  install -m644 LICENSE "$pkgdir/opt/arch/share/licenses/go/LICENSE"
 
-  mkdir -p "$pkgdir/usr/local/"{share/go,lib/go,lib/go/pkg,lib/go/src,lib/go/site/src}
+  mkdir -p "$pkgdir/opt/arch/"{share/go,lib/go,lib/go/pkg,lib/go/src,lib/go/site/src}
 
-  cp -r doc misc "$pkgdir/usr/local/share/go"
-  ln -s /usr/local/share/go/doc "$pkgdir/usr/local/lib/go/doc"
-  cp -a bin "$pkgdir/usr/local"
-  cp -a pkg/{include,${GOOS}_$GOARCH,tool} "$pkgdir/usr/local/lib/go/pkg"
+  cp -r doc misc "$pkgdir/opt/arch/share/go"
+  ln -s /opt/arch/share/go/doc "$pkgdir/opt/arch/lib/go/doc"
+  cp -a bin "$pkgdir/opt/arch"
+  cp -a pkg/{include,${GOOS}_$GOARCH,tool} "$pkgdir/opt/arch/lib/go/pkg"
   # The 'race' folder is not always generated for all architectures.
-  [ -d "pkg/${GOOS}_${GOARCH}_race" ] && cp -a pkg/${GOOS}_${GOARCH}_race "$pkgdir/usr/local/lib/go/pkg"
-  cp -a "$GOROOT/src" "$pkgdir/usr/local/lib/go/"
-  cp -a "$GOROOT/lib" "$pkgdir/usr/local/lib/go/"
+  [ -d "pkg/${GOOS}_${GOARCH}_race" ] && cp -a pkg/${GOOS}_${GOARCH}_race "$pkgdir/opt/arch/lib/go/pkg"
+  cp -a "$GOROOT/src" "$pkgdir/opt/arch/lib/go/"
+  cp -a "$GOROOT/lib" "$pkgdir/opt/arch/lib/go/"
 
   # This is to make `# go get golang.org/x/tour/gotour` and then running the
   # gotour executable work out of the box.
-  #ln -sf /usr/local/bin "$pkgdir/usr/local/lib/go/bin"
+  #ln -sf /opt/arch/bin "$pkgdir/opt/arch/lib/go/bin"
 
-  install -d -m755 "$pkgdir/usr/local/lib/go"
-  install -m644 VERSION "$pkgdir/usr/local/lib/go/VERSION"
+  install -d -m755 "$pkgdir/opt/arch/lib/go"
+  install -m644 VERSION "$pkgdir/opt/arch/lib/go/VERSION"
 
   # For godoc
-  install -d -m755 "$pkgdir/usr/local/lib/go"
-  install -m644 favicon.ico "$pkgdir/usr/local/lib/go/favicon.ico"
+  install -d -m755 "$pkgdir/opt/arch/lib/go"
+  install -m644 favicon.ico "$pkgdir/opt/arch/lib/go/favicon.ico"
 
   # Clean Windows specific files.
-  rm -fv "$pkgdir"/usr/local/lib/go/src/*.bat
+  rm -fv "$pkgdir"/opt/arch/lib/go/src/*.bat
 
   # Strip manually since `strip` will not process Go's static libraries.
-  #for i in "$pkgdir/usr/local/bin"/* \
-  #         "$pkgdir/usr/local/lib/go/pkg/tool/${GOOS}_$GOARCH"/*; do
+  #for i in "$pkgdir/opt/arch/bin"/* \
+  #         "$pkgdir/opt/arch/lib/go/pkg/tool/${GOOS}_$GOARCH"/*; do
   #    strip -s "$i"
   #done
 }
@@ -140,19 +140,19 @@ package_go-tools() {
   GOOS=darwin
   GOARCH=amd64
 
-  install -d -m755 "$pkgdir/usr/local/share/licenses/$pkgname"
-  install -m644 "$srcdir/src/$_gourl/../LICENSE" "$pkgdir/usr/local/share/licenses/$pkgname/LICENSE"
+  install -d -m755 "$pkgdir/opt/arch/share/licenses/$pkgname"
+  install -m644 "$srcdir/src/$_gourl/../LICENSE" "$pkgdir/opt/arch/share/licenses/$pkgname/LICENSE"
 
   # System-wide tools
-  install -d -m755 "$pkgdir/usr/local/bin"
-  install -p -m755 "$srcdir/bin"/* "$pkgdir/usr/local/bin"
+  install -d -m755 "$pkgdir/opt/arch/bin"
+  install -p -m755 "$srcdir/bin"/* "$pkgdir/opt/arch/bin"
 
   # Distribution tools
-  install -d -m755 "$pkgdir/usr/local/lib/go/pkg/tool/${GOOS}_$GOARCH"
-  install -p -m755 "$srcdir/pkg/tool/${GOOS}_$GOARCH"/* "$pkgdir/usr/local/lib/go/pkg/tool/${GOOS}_$GOARCH"
+  install -d -m755 "$pkgdir/opt/arch/lib/go/pkg/tool/${GOOS}_$GOARCH"
+  install -p -m755 "$srcdir/pkg/tool/${GOOS}_$GOARCH"/* "$pkgdir/opt/arch/lib/go/pkg/tool/${GOOS}_$GOARCH"
 
-  #for i in "$pkgdir/usr/local/bin"/* \
-  #         "$pkgdir/usr/local/lib/go/pkg/tool/${GOOS}_$GOARCH"/*; do
+  #for i in "$pkgdir/opt/arch/bin"/* \
+  #         "$pkgdir/opt/arch/lib/go/pkg/tool/${GOOS}_$GOARCH"/*; do
   #  strip -s "$i"
   #done
 }

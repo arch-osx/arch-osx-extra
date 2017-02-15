@@ -57,6 +57,6 @@ package_python3-setuptools() {
   replaces=('python3-distribute')
 
   cd "$srcdir"/$_pkgname-$pkgver
-  python3 setup.py install --prefix=/usr/local --root="$pkgdir" --optimize=1 --skip-build
-  rm "$pkgdir"/usr/local/bin/easy_install
+  python3 setup.py install --prefix=/opt/arch --root="$pkgdir" --optimize=1 --skip-build
+  rm "$pkgdir"/opt/arch/bin/easy_install
 }

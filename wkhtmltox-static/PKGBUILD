@@ -17,6 +17,6 @@ prepare() {
 
 package() {
   cd $srcdir/wkhtmltox-installer
-  install -d -m755 $pkgdir/usr/local
-  bsdtar -C $pkgdir/usr/local -xf app.tar.xz
+  install -d -m755 $pkgdir/opt/arch
+  bsdtar -C $pkgdir/opt/arch -xf app.tar.xz
 }

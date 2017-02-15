@@ -19,9 +19,9 @@ package_python3-pyparsing() {
   cd "pyparsing-$pkgver"
 
   rm -rf build
-  python3 setup.py install --prefix=/usr/local --root="$pkgdir" --optimize=1
-  install -dm755 "$pkgdir/usr/local/share/licenses/$pkgname"
-  install -m644 LICENSE "$pkgdir/usr/local/share/licenses/$pkgname/LICENSE"
+  python3 setup.py install --prefix=/opt/arch --root="$pkgdir" --optimize=1
+  install -dm755 "$pkgdir/opt/arch/share/licenses/$pkgname"
+  install -m644 LICENSE "$pkgdir/opt/arch/share/licenses/$pkgname/LICENSE"
 }
 
 #package_python2-pyparsing() {
@@ -29,7 +29,7 @@ package_python3-pyparsing() {
 #  cd py2
 #
 #  rm -rf build
-#  python2 setup.py install --prefix=/usr/local --root="$pkgdir" --optimize=1
-#  install -dm755 "$pkgdir/usr/local/share/licenses/$pkgname"
-#  install -m644 LICENSE "$pkgdir/usr/local/share/licenses/$pkgname/LICENSE"
+#  python2 setup.py install --prefix=/opt/arch --root="$pkgdir" --optimize=1
+#  install -dm755 "$pkgdir/opt/arch/share/licenses/$pkgname"
+#  install -m644 LICENSE "$pkgdir/opt/arch/share/licenses/$pkgname/LICENSE"
 #}

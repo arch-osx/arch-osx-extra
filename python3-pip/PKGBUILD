@@ -15,14 +15,14 @@ package_python3-pip() {
 
   cd "$srcdir/pip-$pkgver"
   python3 setup.py build
-  python3 setup.py install --prefix=/usr/local --root="$pkgdir"
+  python3 setup.py install --prefix=/opt/arch --root="$pkgdir"
 
-  rm $pkgdir/usr/local/bin/pip
+  rm $pkgdir/opt/arch/bin/pip
 
   install -d -m755 \
-	  "$pkgdir/usr/local/share/licenses/$pkgname"
+	  "$pkgdir/opt/arch/share/licenses/$pkgname"
   install -m644 LICENSE.txt \
-	  "$pkgdir/usr/local/share/licenses/$pkgname/LICENSE"
+	  "$pkgdir/opt/arch/share/licenses/$pkgname/LICENSE"
 }
 
 #package_python2-pip() {
@@ -30,15 +30,15 @@ package_python3-pip() {
 #
 #  cd "$srcdir/pip-$pkgver"
 #  python2 setup.py build
-#  python2 setup.py install --prefix=/usr/local --root="$pkgdir"
+#  python2 setup.py install --prefix=/opt/arch --root="$pkgdir"
 #
-#  mv "$pkgdir/usr/local/bin/pip" "$pkgdir/usr/local/bin/pip2"
+#  mv "$pkgdir/opt/arch/bin/pip" "$pkgdir/opt/arch/bin/pip2"
 #  sed -i "s|#!/usr/bin/env python$|#!/usr/bin/env python2|" \
-#    ${pkgdir}/usr/local/lib/python2.7/site-packages/pip/__init__.py
-#  python2 -m compileall ${pkgdir}/usr/local/lib/python2.7/site-packages/pip/__init__.py
+#    ${pkgdir}/opt/arch/lib/python2.7/site-packages/pip/__init__.py
+#  python2 -m compileall ${pkgdir}/opt/arch/lib/python2.7/site-packages/pip/__init__.py
 #
 #  install -d -m755 \
-#	  "$pkgdir/usr/local/share/licenses/$pkgname"
+#	  "$pkgdir/opt/arch/share/licenses/$pkgname"
 #  install -m644 LICENSE.txt \
-#	  "$pkgdir/usr/local/share/licenses/$pkgname/LICENSE"
+#	  "$pkgdir/opt/arch/share/licenses/$pkgname/LICENSE"
 #}

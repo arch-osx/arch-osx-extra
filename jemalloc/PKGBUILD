@@ -13,7 +13,7 @@ md5sums=('c4e53c947905a533d5899e5cc3da1f94')
 
 build() {
   cd $pkgname-$pkgver
-  ./configure --prefix=/usr/local
+  ./configure --prefix=/opt/arch
   make
 }
 
@@ -22,6 +22,6 @@ package() {
   make DESTDIR="$pkgdir" install
   find "$pkgdir" -name \*.a -type f -exec chmod 644 '{}' \;
 
-  install -dm755 "$pkgdir/usr/local/share/licenses/$pkgname"
-  install -m644 COPYING "$pkgdir/usr/local/share/licenses/$pkgname/COPYING"
+  install -dm755 "$pkgdir/opt/arch/share/licenses/$pkgname"
+  install -m644 COPYING "$pkgdir/opt/arch/share/licenses/$pkgname/COPYING"
 }

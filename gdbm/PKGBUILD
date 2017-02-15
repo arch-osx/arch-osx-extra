@@ -29,7 +29,7 @@ prepare() {
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
-  ./configure --prefix=/usr/local --enable-libgdbm-compat
+  ./configure --prefix=/opt/arch --enable-libgdbm-compat
   make
 }
 
@@ -43,8 +43,8 @@ package() {
   make DESTDIR="${pkgdir}" install
 
   # create symlinks for compatibility
-  install -dm755 "${pkgdir}"/usr/local/include/gdbm
-  ln -sf ../gdbm.h "${pkgdir}"/usr/local/include/gdbm/gdbm.h
-  ln -sf ../ndbm.h "${pkgdir}"/usr/local/include/gdbm/ndbm.h
-  ln -sf ../dbm.h  "${pkgdir}"/usr/local/include/gdbm/dbm.h
+  install -dm755 "${pkgdir}"/opt/arch/include/gdbm
+  ln -sf ../gdbm.h "${pkgdir}"/opt/arch/include/gdbm/gdbm.h
+  ln -sf ../ndbm.h "${pkgdir}"/opt/arch/include/gdbm/ndbm.h
+  ln -sf ../dbm.h  "${pkgdir}"/opt/arch/include/gdbm/dbm.h
 }

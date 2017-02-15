@@ -1,18 +1,18 @@
 post_install(){
-  if [ ! -d '/usr/local/var/lib/mysql' ]; then
-    mkdir -p /usr/local/var/lib/mysql
-    chown _mysql:_mysql /usr/local/var/lib/mysql
-    chmod u+rwx,go+rx /usr/local/var/lib/mysql
+  if [ ! -d '/opt/arch/var/lib/mysql' ]; then
+    mkdir -p /opt/arch/var/lib/mysql
+    chown _mysql:_mysql /opt/arch/var/lib/mysql
+    chmod u+rwx,go+rx /opt/arch/var/lib/mysql
   fi
 
-  if [ ! -d '/usr/local/var/run/mysqld' ]; then
-    mkdir -p /usr/local/var/run/mysqld
-    chown _mysql:_mysql /usr/local/var/run/mysqld
-    chmod u+rwx,go+rx /usr/local/var/run/mysqld
+  if [ ! -d '/opt/arch/var/run/mysqld' ]; then
+    mkdir -p /opt/arch/var/run/mysqld
+    chown _mysql:_mysql /opt/arch/var/run/mysqld
+    chmod u+rwx,go+rx /opt/arch/var/run/mysqld
   fi
 
-  if [ ! -f "usr/local/var/lib/mysql/mysql" ]; then
-    mysql_install_db --user=_mysql --basedir=/usr/local --datadir=/usr/local/var/lib/mysql
+  if [ ! -f "opt/arch/var/lib/mysql/mysql" ]; then
+    mysql_install_db --user=_mysql --basedir=/opt/arch --datadir=/opt/arch/var/lib/mysql
   fi
 
   echo

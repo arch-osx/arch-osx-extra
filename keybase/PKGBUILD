@@ -25,8 +25,8 @@ build() {
 
 package() {
   cd client-${pkgver}
-  install -d -m755 "$pkgdir"/usr/local/bin
-  install -m755 go/keybase/keybase "$pkgdir"/usr/local/bin/keybase
-  install -dm755 "$pkgdir"/usr/local/share/licenses/$pkgname
-  install -m644 LICENSE "$pkgdir"/usr/local/share/licenses/$pkgname/LICENSE
+  install -d -m755 "$pkgdir"/opt/arch/bin
+  install -m755 go/keybase/keybase "$pkgdir"/opt/arch/bin/keybase
+  install -dm755 "$pkgdir"/opt/arch/share/licenses/$pkgname
+  install -m644 LICENSE "$pkgdir"/opt/arch/share/licenses/$pkgname/LICENSE
 }

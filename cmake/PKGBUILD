@@ -19,7 +19,7 @@ prepare() {
 build() {
   cd ${pkgname}-${pkgver}
 
-  ./bootstrap --prefix=/usr/local \
+  ./bootstrap --prefix=/opt/arch \
     --mandir=/share/man \
     --datadir=/share/cmake \
     --docdir=/share/doc/cmake \
@@ -27,7 +27,7 @@ build() {
     --system-zlib \
     --system-bzip2 \
     --system-curl \
-    --parallel=$(/usr/local/bin/getconf _NPROCESSORS_ONLN)
+    --parallel=$(/opt/arch/bin/getconf _NPROCESSORS_ONLN)
   make
 }
 
@@ -35,23 +35,23 @@ package() {
   cd ${pkgname}-${pkgver}
   make DESTDIR="${pkgdir}" install
 
-  vimpath="${pkgdir}/usr/local/share/vim/vimfiles"
+  vimpath="${pkgdir}/opt/arch/share/vim/vimfiles"
   install -d "${vimpath}"/{help,indent,syntax}
-  ln -s /usr/local/share/cmake-${pkgver%.*}/editors/vim/cmake-help.vim \
+  ln -s /opt/arch/share/cmake-${pkgver%.*}/editors/vim/cmake-help.vim \
     "${vimpath}"/help/
-  ln -s /usr/local/share/cmake-${pkgver%.*}/editors/vim/cmake-indent.vim \
+  ln -s /opt/arch/share/cmake-${pkgver%.*}/editors/vim/cmake-indent.vim \
     "${vimpath}"/indent/
-  ln -s /usr/local/share/cmake-${pkgver%.*}/editors/vim/cmake-syntax.vim \
+  ln -s /opt/arch/share/cmake-${pkgver%.*}/editors/vim/cmake-syntax.vim \
     "${vimpath}"/syntax/
 
-  install -d "${pkgdir}"/usr/local/share/emacs/site-lisp/
+  install -d "${pkgdir}"/opt/arch/share/emacs/site-lisp/
   #emacs -batch -f batch-byte-compile \
-  #  "${pkgdir}"/usr/local/share/cmake-${pkgver%.*}/editors/emacs/cmake-mode.el
-  #ln -s /usr/local/share/cmake-${pkgver%.*}/editors/emacs/cmake-mode.el \
-  #  "${pkgdir}"/usr/local/share/emacs/site-lisp/
+  #  "${pkgdir}"/opt/arch/share/cmake-${pkgver%.*}/editors/emacs/cmake-mode.el
+  #ln -s /opt/arch/share/cmake-${pkgver%.*}/editors/emacs/cmake-mode.el \
+  #  "${pkgdir}"/opt/arch/share/emacs/site-lisp/
 
   install -d -m755  \
-    "${pkgdir}"/usr/local/share/licenses/${pkgname}
+    "${pkgdir}"/opt/arch/share/licenses/${pkgname}
   install -m644 Copyright.txt \
-    "${pkgdir}"/usr/local/share/licenses/${pkgname}/LICENSE
+    "${pkgdir}"/opt/arch/share/licenses/${pkgname}/LICENSE
 }

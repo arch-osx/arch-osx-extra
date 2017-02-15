@@ -17,7 +17,7 @@ build() {
     tar xzf dist/libstemmer_c.tgz -C "$srcdir"/$pkgname-$pkgver-release
 
 	cd "$srcdir"/$pkgname-$pkgver-release
-	./configure --prefix=/usr/local --localstatedir=/usr/local/var/lib/sphinx --with-pgsql --with-mysql --with-libstemmer
+	./configure --prefix=/opt/arch --localstatedir=/opt/arch/var/lib/sphinx --with-pgsql --with-mysql --with-libstemmer
 	make
 }
 

@@ -58,13 +58,13 @@ test() {
 package() {
     cd "${srcdir}/${_hkgname}-${pkgver}"
 
-    cabal install --prefix=${pkgdir}/usr/local
+    cabal install --prefix=${pkgdir}/opt/arch
 
     # No haskell library
-    rm -r "$pkgdir"/usr/local/lib
+    rm -r "$pkgdir"/opt/arch/lib
 
-    rm -r "$pkgdir"/usr/local/share/doc
+    rm -r "$pkgdir"/opt/arch/share/doc
 
-    install -d -m755 "$pkgdir"/usr/local/share/man/man1
-    install -m644 shellcheck.1 "$pkgdir"/usr/local/share/man/man1/shellcheck.1
+    install -d -m755 "$pkgdir"/opt/arch/share/man/man1
+    install -m644 shellcheck.1 "$pkgdir"/opt/arch/share/man/man1/shellcheck.1
 }

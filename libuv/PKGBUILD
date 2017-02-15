@@ -12,7 +12,7 @@ source=("https://github.com/libuv/libuv/archive/v$pkgver/$pkgname-$pkgver.tar.gz
 build() {
 	cd "$srcdir"/$pkgname-$pkgver
 	./autogen.sh
-	./configure --prefix=/usr/local
+	./configure --prefix=/opt/arch
 	make
 	#make man -C docs
 
@@ -31,23 +31,23 @@ package() {
 	make DESTDIR="$pkgdir" install
 
 	install -dm755 \
-		"$pkgdir"/usr/local/share/licenses/$pkgname
+		"$pkgdir"/opt/arch/share/licenses/$pkgname
 	install -m644 LICENSE \
-		"$pkgdir"/usr/local/share/licenses/$pkgname/LICENSE
+		"$pkgdir"/opt/arch/share/licenses/$pkgname/LICENSE
 
 	install -dm755 \
-		"$pkgdir"/usr/local/share/doc/$pkgname
+		"$pkgdir"/opt/arch/share/doc/$pkgname
 	install -m644 AUTHORS \
-		"$pkgdir"/usr/local/share/doc/$pkgname/AUTHORS
+		"$pkgdir"/opt/arch/share/doc/$pkgname/AUTHORS
 	install -m644 README.md \
-		"$pkgdir"/usr/local/share/doc/$pkgname/README.md
+		"$pkgdir"/opt/arch/share/doc/$pkgname/README.md
 	install -m644 ChangeLog \
-		"$pkgdir"/usr/local/share/doc/$pkgname/ChangeLog
+		"$pkgdir"/opt/arch/share/doc/$pkgname/ChangeLog
 
 	#install -dm755 \
-	#	"$pkgdir"/usr/local/share/man/man1/libuv.1
+	#	"$pkgdir"/opt/arch/share/man/man1/libuv.1
 	#install -m644 docs/build/man/libuv.1 \
-	#	"$pkgdir"/usr/local/share/man/man1/libuv.1
+	#	"$pkgdir"/opt/arch/share/man/man1/libuv.1
 }
 
 sha256sums=('f8b8272a0d80138b709d38fad2baf771899eed61e7f9578d17898b07a1a2a5eb')

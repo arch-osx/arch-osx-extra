@@ -83,8 +83,8 @@ build() {
   export PATH="${srcdir}/bootstrap/binary/bin:$PATH"
 
   ./configure \
-    --prefix=/usr/local \
-    --docdir=/usr/local/share/doc/ghc \
+    --prefix=/opt/arch \
+    --docdir=/opt/arch/share/doc/ghc \
     --with-gmp-includes=${srcdir}/integer-gmp/include \
     --with-gmp-libraries=${srcdir}/integer-gmp/lib \
     --with-nm=$(xcrun --find nm-classic)
@@ -97,19 +97,19 @@ package() {
   make DESTDIR="$pkgdir" -j1 install
 
   install -d -m755 \
-    "$pkgdir/usr/local/share/bash-completion/completions"
+    "$pkgdir/opt/arch/share/bash-completion/completions"
   install -m644 utils/completion/ghc.bash \
-    "$pkgdir/usr/local/share/bash-completion/completions/ghc"
+    "$pkgdir/opt/arch/share/bash-completion/completions/ghc"
 
   install -d -m755 \
-    "$pkgdir/usr/local/share/libalpm/hooks/"
+    "$pkgdir/opt/arch/share/libalpm/hooks/"
   for _hook in ghc-rebuild-doc-index.hook ghc-register.hook ghc-unregister.hook; do
     install -m644 "$srcdir/$_hook" \
-      "$pkgdir/usr/local/share/libalpm/hooks/$_hook"
+      "$pkgdir/opt/arch/share/libalpm/hooks/$_hook"
   done
 
-  install -d -m755 "${pkgdir}"/usr/local/share/haskell/{register,unregister}
+  install -d -m755 "${pkgdir}"/opt/arch/share/haskell/{register,unregister}
 
-  install -d -m755 "$pkgdir/usr/local/share/licenses/$pkgname"
-  install -m644 LICENSE "$pkgdir/usr/local/share/licenses/$pkgname/LICENSE"
+  install -d -m755 "$pkgdir/opt/arch/share/licenses/$pkgname"
+  install -m644 LICENSE "$pkgdir/opt/arch/share/licenses/$pkgname/LICENSE"
 }

@@ -14,22 +14,22 @@
   <string>_postgres</string>
   <key>ProgramArguments</key>
   <array>
-    <string>/usr/local/bin/postgres</string>
+    <string>/opt/arch/bin/postgres</string>
     <string>-D</string>
-    <string>/usr/local/var/lib/postgres/data</string>
+    <string>/opt/arch/var/lib/postgres/data</string>
     <string>-r</string>
-    <string>/usr/local/var/lib/postgres/server.log</string>
+    <string>/opt/arch/var/lib/postgres/server.log</string>
   </array>
   <key>RunAtLoad</key>
   <true/>
   <key>WorkingDirectory</key>
-  <string>/usr/local/var/lib/postgres</string>
+  <string>/opt/arch/var/lib/postgres</string>
   <key>StandardErrorPath</key>
-  <string>/usr/local/var/lib/postgres/server.log</string>
+  <string>/opt/arch/var/lib/postgres/server.log</string>
   <key>EnvironmentVariables</key>
   <dict>
     <key>PATH</key>
-    <string>/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    <string>/opt/arch/bin:/opt/arch/sbin:/usr/bin:/bin:/usr/sbin:/sbin</string>
     <key>LC_ALL</key>
     <string>en_US.UTF-8</string>
   </dict>

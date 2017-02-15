@@ -25,7 +25,7 @@ index 6efb6ac..344e021 100644
  # 
  # Note that you must specify a directory here, not a file name.
 -dir ./
-+dir /usr/local/var/lib/redis/
++dir /opt/arch/var/lib/redis/
  
  ################################# REPLICATION #################################
  

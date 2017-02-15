@@ -19,7 +19,7 @@ prepare() {
 
 build() {
   cd ${pkgname}-${pkgver}
-  ./configure --prefix=/usr/local --sysconfdir=/usr/local/etc
+  ./configure --prefix=/opt/arch --sysconfdir=/opt/arch/etc
   make
 }
 
@@ -27,12 +27,12 @@ package() {
   cd ${pkgname}-${pkgver}
   make DESTDIR="${pkgdir}" install
 
-# bash-completion is sourced in /usr/local/etc/bash.bashrc so that non-bash shell don't source it
-  rm "${pkgdir}/usr/local/etc/profile.d/bash_completion.sh"
+# bash-completion is sourced in /opt/arch/etc/bash.bashrc so that non-bash shell don't source it
+  rm "${pkgdir}/opt/arch/etc/profile.d/bash_completion.sh"
 
 # remove Slackware's makepkg completion
-  rm "${pkgdir}/usr/local/share/bash-completion/completions/makepkg"
+  rm "${pkgdir}/opt/arch/share/bash-completion/completions/makepkg"
 
 # remove completions which overlap with util-linux
-  rm "${pkgdir}/usr/local/share/bash-completion/completions"/{u,}mount
+  rm "${pkgdir}/opt/arch/share/bash-completion/completions"/{u,}mount
 }

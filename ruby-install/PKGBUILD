@@ -13,5 +13,5 @@ sha256sums=('3cc90846ca972d88b601789af2ad9ed0a496447a13cb986a3d74a4de062af37d')
 package() {
   cd "$srcdir/${pkgname}-${pkgver}"
 
-  make DESTDIR="${pkgdir}" PREFIX=/usr/local install
+  make DESTDIR="${pkgdir}" PREFIX=/opt/arch install
 }

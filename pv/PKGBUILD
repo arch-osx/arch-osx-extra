@@ -12,7 +12,7 @@ md5sums=('e163d8963c595b2032666724bc509bcc')
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
 
-  ./configure --prefix=/usr/local --mandir=/usr/local/share/man
+  ./configure --prefix=/opt/arch --mandir=/opt/arch/share/man
   make
 }
   
@@ -20,6 +20,6 @@ package() {
   cd "${srcdir}/${pkgname}-${pkgver}"
 
   make DESTDIR="$pkgdir" install
-  install -dm755 "$pkgdir/usr/local/share/licenses/$pkgname"
-  install -m644 doc/COPYING "$pkgdir/usr/local/share/licenses/$pkgname/COPYING"
+  install -dm755 "$pkgdir/opt/arch/share/licenses/$pkgname"
+  install -m644 doc/COPYING "$pkgdir/opt/arch/share/licenses/$pkgname/COPYING"
 }

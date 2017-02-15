@@ -2,7 +2,7 @@
 Type = File
 Operation = Upgrade
 Operation = Remove
-Target = usr/local/share/haskell/unregister/*.sh
+Target = opt/arch/share/haskell/unregister/*.sh
 
 [Action]
 Description = Unregistering Haskell modules...

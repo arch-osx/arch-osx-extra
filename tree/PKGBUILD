@@ -19,5 +19,5 @@ build() {
 package() {
   cd "${srcdir}/${pkgname}-${pkgver}"
 
-  make prefix="${pkgdir}/usr/local" MANDIR="${pkgdir}/usr/local/share/man/man1" install
+  make prefix="${pkgdir}/opt/arch" MANDIR="${pkgdir}/opt/arch/share/man/man1" install
 }

@@ -30,7 +30,7 @@ prepare() {
 build() {
   cd $pkgname-$pkgver
   ./configure \
-    --prefix=/usr/local \
+    --prefix=/opt/arch \
     --enable-unicode-properties \
     --enable-pcre16 \
     --enable-pcre32 \
@@ -50,6 +50,6 @@ package() {
   cd $pkgname-$pkgver
   make DESTDIR="$pkgdir" install
 
-  install -d mm755 "$pkgdir/usr/local/share/licenses/$pkgname"
-  install -m644 LICENCE "$pkgdir/usr/local/share/licenses/$pkgname/LICENSE"
+  install -d mm755 "$pkgdir/opt/arch/share/licenses/$pkgname"
+  install -m644 LICENCE "$pkgdir/opt/arch/share/licenses/$pkgname/LICENSE"
 }

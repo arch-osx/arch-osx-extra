@@ -9,9 +9,9 @@ source=(https://dl.google.com/android/repository/platform-tools_r${pkgver}-macos
 
 package() {
     cd platform-tools
-    install -d -m755 $pkgdir/usr/local/bin
-    install -m755 adb $pkgdir/usr/local/bin
-    install -m755 fastboot $pkgdir/usr/local/bin
+    install -d -m755 $pkgdir/opt/arch/bin
+    install -m755 adb $pkgdir/opt/arch/bin
+    install -m755 fastboot $pkgdir/opt/arch/bin
 }
 
 sha256sums=('d2439f5de236c3831c048b678653c5955487351be8e196c65923b4eca5c47692')

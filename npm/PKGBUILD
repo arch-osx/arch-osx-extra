@@ -22,27 +22,27 @@ build() {
 
 package() {
   cd npm
-  make NPMOPTS="--prefix=\"$pkgdir/usr/local\"" install
+  make NPMOPTS="--prefix=\"$pkgdir/opt/arch\"" install
 
   # Why 777? :/
   chmod -R u=rwX,go=rX "$pkgdir"
 
   # Fix files owned by nobody:
-  chown -R `whoami` "$pkgdir/usr/local/lib/node_modules"
+  chown -R `whoami` "$pkgdir/opt/arch/lib/node_modules"
 
   # Fix wrong symlinks
   for _dir in man1 man5 man7; do
-    rm -f "$pkgdir"/usr/local/share/man/$_dir/*
-    cd "$pkgdir"/usr/local/lib/node_modules/npm/man/$_dir
+    rm -f "$pkgdir"/opt/arch/share/man/$_dir/*
+    cd "$pkgdir"/opt/arch/lib/node_modules/npm/man/$_dir
     for _file in *; do
-      ln -s /usr/local/lib/node_modules/npm/man/$_dir/$_file "$pkgdir"/usr/local/share/man/$_dir/
+      ln -s /opt/arch/lib/node_modules/npm/man/$_dir/$_file "$pkgdir"/opt/arch/share/man/$_dir/
     done
   done
 
   # Provide node-gyp executable
-  cp "$pkgdir"/usr/local/lib/node_modules/npm/bin/node-gyp-bin/node-gyp "$pkgdir"/usr/local/bin/node-gyp
-  sed -i -e 's|"`dirname "$0"`/../../|"`dirname "$0"`/../lib/node_modules/npm/|' "$pkgdir"/usr/local/bin/node-gyp
+  cp "$pkgdir"/opt/arch/lib/node_modules/npm/bin/node-gyp-bin/node-gyp "$pkgdir"/opt/arch/bin/node-gyp
+  sed -i -e 's|"`dirname "$0"`/../../|"`dirname "$0"`/../lib/node_modules/npm/|' "$pkgdir"/opt/arch/bin/node-gyp
 
-  install -dm755 "$pkgdir/usr/local/share/licenses/$pkgname"
-  install -m644 "$srcdir/npm/LICENSE" "$pkgdir/usr/local/share/licenses/$pkgname/LICENSE"
+  install -dm755 "$pkgdir/opt/arch/share/licenses/$pkgname"
+  install -m644 "$srcdir/npm/LICENSE" "$pkgdir/opt/arch/share/licenses/$pkgname/LICENSE"
 }

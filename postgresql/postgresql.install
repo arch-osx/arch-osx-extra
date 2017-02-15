@@ -1,15 +1,15 @@
 post_install() {
-  if [ ! -d '/usr/local/var/lib/postgres' ]; then
-    mkdir -p '/usr/local/var/lib/postgres'
-    chown _postgres:_postgres '/usr/local/var/lib/postgres'
-    chmod u+rwx,go+rx /usr/local/var/lib/postgres
+  if [ ! -d '/opt/arch/var/lib/postgres' ]; then
+    mkdir -p '/opt/arch/var/lib/postgres'
+    chown _postgres:_postgres '/opt/arch/var/lib/postgres'
+    chmod u+rwx,go+rx /opt/arch/var/lib/postgres
   fi
-  if [ ! -d '/usr/local/var/lib/postgres/data' ]; then
-    mkdir -p '/usr/local/var/lib/postgres/data'
-    chown _postgres:_postgres '/usr/local/var/lib/postgres/data'
+  if [ ! -d '/opt/arch/var/lib/postgres/data' ]; then
+    mkdir -p '/opt/arch/var/lib/postgres/data'
+    chown _postgres:_postgres '/opt/arch/var/lib/postgres/data'
   fi
-  if [ ! -f "/usr/local/var/lib/postgres/data/PG_VERSION" ]; then
-    sudo -u _postgres /usr/local/bin/initdb -U postgres /usr/local/var/lib/postgres/data >/dev/null
+  if [ ! -f "/opt/arch/var/lib/postgres/data/PG_VERSION" ]; then
+    sudo -u _postgres /opt/arch/bin/initdb -U postgres /opt/arch/var/lib/postgres/data >/dev/null
   fi
 
   echo

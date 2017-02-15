@@ -17,14 +17,14 @@ build() {
   # TODO: OS X provided: isolate
 
   # point to gettext
-  sed -i~ -e 's/CPPFLAGS=\(.*\)$/CPPFLAGS=\1 -I\/usr\/local\/include/' Makefile
-  sed -i~ -e 's/LDFLAGS=\(.*\)$/LDFLAGS=\1 -L\/usr\/local\/lib -lintl/' Makefile
+  sed -i~ -e 's/CPPFLAGS=\(.*\)$/CPPFLAGS=\1 -I\/opt\/arch\/include/' Makefile
+  sed -i~ -e 's/LDFLAGS=\(.*\)$/LDFLAGS=\1 -L\/opt\/arch\/lib -lintl/' Makefile
 
-  make prefix=/usr/local mandir=/usr/local/share/man
+  make prefix=/opt/arch mandir=/opt/arch/share/man
 }
 
 package() {
   cd "$srcdir/${_pkgname}-${pkgver}"
 
-  make DESTDIR="${pkgdir}" mandir=/usr/local/share/man install
+  make DESTDIR="${pkgdir}" prefix=/opt/arch mandir=/opt/arch/share/man install
 }

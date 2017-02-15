@@ -11,17 +11,17 @@ sha256sums=('0cd75738a938faff4a48c403fb171e128eb9bbd396621237716dbe98c3ecd1af')
 
 build() {
 	cd "$srcdir"/onig-$pkgver
-	./configure --prefix=/usr/local
+	./configure --prefix=/opt/arch
 	make
 }
 
 package() {
 	cd "$srcdir"/onig-$pkgver
 	make DESTDIR="$pkgdir" install
-	install -dm755 "$pkgdir"/usr/local/share/doc
-	cp -r doc "$pkgdir"/usr/local/share/doc/$pkgname
-    install -d -m755 "$pkgdir"/usr/local/share/licenses/$pkgname/
+	install -dm755 "$pkgdir"/opt/arch/share/doc
+	cp -r doc "$pkgdir"/opt/arch/share/doc/$pkgname
+    install -d -m755 "$pkgdir"/opt/arch/share/licenses/$pkgname/
 	for licfile in COPYING INSTALL; do
-		install -m644 $licfile "$pkgdir"/usr/local/share/licenses/$pkgname/$licfile
+		install -m644 $licfile "$pkgdir"/opt/arch/share/licenses/$pkgname/$licfile
 	done
 }

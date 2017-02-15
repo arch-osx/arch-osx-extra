@@ -11,7 +11,7 @@ source=("git://github.com/ggreer/$pkgname.git#tag=$pkgver")
 md5sums=('SKIP')
 
 prepare() {
-  sed -i -e 's:configure:configure --prefix=/usr/local:' "$pkgname/build.sh"
+  sed -i -e 's:configure:configure --prefix=/opt/arch:' "$pkgname/build.sh"
 }
 
 build() {

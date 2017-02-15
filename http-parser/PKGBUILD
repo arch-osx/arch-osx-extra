@@ -30,10 +30,10 @@ check() {
 
 package() {
   cd $pkgname
-  make PREFIX="$pkgdir/usr/local" install
+  make PREFIX="$pkgdir/opt/arch" install
 
   install -dm755 \
-        "${pkgdir}/usr/local/share/licenses/${pkgname}"
+        "${pkgdir}/opt/arch/share/licenses/${pkgname}"
   install -m644 LICENSE-MIT \
-        "${pkgdir}/usr/local/share/licenses/${pkgname}/LICENSE-MIT"
+        "${pkgdir}/opt/arch/share/licenses/${pkgname}/LICENSE-MIT"
 }

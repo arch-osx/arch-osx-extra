@@ -8,7 +8,7 @@ Index: redis-2.8.11/src/Makefile
  	DEPENDENCY_TARGETS+= jemalloc
 -	FINAL_CFLAGS+= -DUSE_JEMALLOC -I../deps/jemalloc/include
 -	FINAL_LIBS+= ../deps/jemalloc/lib/libjemalloc.a -ldl
-+	FINAL_CFLAGS+= -DUSE_JEMALLOC -DJEMALLOC_NO_DEMANGLE -I/usr/local/include/jemalloc
++	FINAL_CFLAGS+= -DUSE_JEMALLOC -DJEMALLOC_NO_DEMANGLE -I/opt/arch/include/jemalloc
 +	FINAL_LIBS+= -ljemalloc -ldl
  endif
  

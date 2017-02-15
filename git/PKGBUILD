@@ -37,8 +37,8 @@ build() {
   export NO_R_TO_GCC_LINKER="1"
 
   cd "$srcdir/$pkgname-$pkgver"
-  make prefix=/usr/local gitexecdir=/usr/local/lib/git-core \
-    CFLAGS="$CFLAGS" LDFLAGS="$LDFLAGS" \
+  make prefix=/opt/arch gitexecdir=/opt/arch/lib/git-core \
+    CFLAGS="$CFLAGS -I/opt/arch/include" LDFLAGS="$LDFLAGS -L/opt/arch/lib" \
     USE_LIBPCRE=1 \
     NO_OPENSSL=1 \
     APPLE_COMMON_CRYPTO=1 \
@@ -46,9 +46,9 @@ build() {
     MAN_BOLD_LITERAL=1 \
     all #doc
 
-  #make -C contrib/emacs prefix=/usr/local
-  make -C contrib/subtree prefix=/usr/local gitexecdir=/usr/local/lib/git-core all #doc
-  make -C contrib/credential/osxkeychain prefix=/usr/local
+  #make -C contrib/emacs prefix=/opt/arch
+  make -C contrib/subtree prefix=/opt/arch gitexecdir=/opt/arch/lib/git-core all #doc
+  make -C contrib/credential/osxkeychain prefix=/opt/arch
 }
 
 check() {
@@ -65,8 +65,8 @@ check() {
   # which is caused by 'git rebase' trying to use builduser's SHELL inside the
   # build chroot (i.e.: /usr/bin/nologin)
   SHELL=/bin/sh \
-  make prefix=/usr/local gitexecdir=/usr/local/lib/git-core \
-    CFLAGS="$CFLAGS" LDFLAGS="$LDFLAGS" \
+  make prefix=/opt/arch gitexecdir=/opt/arch/lib/git-core \
+    CFLAGS="$CFLAGS -I/opt/arch/include" LDFLAGS="$LDFLAGS -L/opt/arch/lib" \
     USE_LIBPCRE=1 \
     NO_OPENSSL=1 \
     APPLE_COMMON_CRYPTO=1 \
@@ -84,8 +84,8 @@ package() {
   export PERL_PATH='/usr/bin/perl'
 
   cd "$srcdir/$pkgname-$pkgver"
-  make prefix=/usr/local gitexecdir=/usr/local/lib/git-core \
-    CFLAGS="$CFLAGS" LDFLAGS="$LDFLAGS" \
+  make prefix=/opt/arch gitexecdir=/opt/arch/lib/git-core \
+    CFLAGS="$CFLAGS -I/opt/arch/include" LDFLAGS="$LDFLAGS -L/opt/arch/lib" \
     USE_LIBPCRE=1 \
     NO_OPENSSL=1 \
     APPLE_COMMON_CRYPTO=1 \
@@ -94,30 +94,30 @@ package() {
     INSTALLDIRS=vendor DESTDIR="$pkgdir" install #install-doc
 
   # bash completion
-  mkdir -p "$pkgdir"/usr/local/share/bash-completion/completions/
-  install -m644 ./contrib/completion/git-completion.bash "$pkgdir"/usr/local/share/bash-completion/completions/git
+  mkdir -p "$pkgdir"/opt/arch/share/bash-completion/completions/
+  install -m644 ./contrib/completion/git-completion.bash "$pkgdir"/opt/arch/share/bash-completion/completions/git
   # fancy git prompt
-  mkdir -p "$pkgdir"/usr/local/share/git/
-  install -m644 ./contrib/completion/git-prompt.sh "$pkgdir"/usr/local/share/git/git-prompt.sh
+  mkdir -p "$pkgdir"/opt/arch/share/git/
+  install -m644 ./contrib/completion/git-prompt.sh "$pkgdir"/opt/arch/share/git/git-prompt.sh
   # emacs
-  #make -C contrib/emacs prefix=/usr/local DESTDIR="$pkgdir" install
+  #make -C contrib/emacs prefix=/opt/arch DESTDIR="$pkgdir" install
   (
     cd contrib/credential/osxkeychain
-    install -m644 git-credential-osxkeychain $pkgdir/usr/local/bin/git-credential-osxkeychain
+    install -m644 git-credential-osxkeychain $pkgdir/opt/arch/bin/git-credential-osxkeychain
     make clean
   )
   # subtree installation
-  make -C contrib/subtree prefix=/usr/local gitexecdir=/usr/local/lib/git-core DESTDIR="$pkgdir" install #install-doc
+  make -C contrib/subtree prefix=/opt/arch gitexecdir=/opt/arch/lib/git-core DESTDIR="$pkgdir" install #install-doc
   # the rest of the contrib stuff
-  cp -a ./contrib/* $pkgdir/usr/local/share/git/
+  cp -a ./contrib/* $pkgdir/opt/arch/share/git/
 
   # remove perllocal.pod, .packlist, and empty directories.
-  rm -rf "$pkgdir"/usr/local/lib/perl5
+  rm -rf "$pkgdir"/opt/arch/lib/perl5
 
-  install -d -m755 "$pkgdir"/usr/local/share/man
-  bsdtar -C "$pkgdir"/usr/local/share/man -xJf "$srcdir/git-manpages-$pkgver.tar.xz"
-  install -d -m755 "$pkgdir"/usr/local/share/doc/git-doc
-  bsdtar -C "$pkgdir"/usr/local/share/doc/git-doc -xJf "$srcdir/git-htmldocs-$pkgver.tar.xz"
-  find "$pkgdir/usr/local/share/doc/git-doc" -name '*.html' -or -name '*.txt' -exec chmod 0644 {} \;
-  find "$pkgdir/usr/local/share/doc/git-doc" -type d -exec chmod 0755 {} \;
+  install -d -m755 "$pkgdir"/opt/arch/share/man
+  bsdtar -C "$pkgdir"/opt/arch/share/man -xJf "$srcdir/git-manpages-$pkgver.tar.xz"
+  install -d -m755 "$pkgdir"/opt/arch/share/doc/git-doc
+  bsdtar -C "$pkgdir"/opt/arch/share/doc/git-doc -xJf "$srcdir/git-htmldocs-$pkgver.tar.xz"
+  find "$pkgdir/opt/arch/share/doc/git-doc" -name '*.html' -or -name '*.txt' -exec chmod 0644 {} \;
+  find "$pkgdir/opt/arch/share/doc/git-doc" -type d -exec chmod 0755 {} \;
 }

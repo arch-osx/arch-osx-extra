@@ -1,10 +1,10 @@
 pre_upgrade() {
   echo '==> Unregistering cabalized packages...'
-  [[ -d /usr/local/share/haskell ]] && find /usr/local/share/haskell -maxdepth 2 -name 'unregister.sh' -exec {} \;
+  [[ -d /opt/arch/share/haskell ]] && find /opt/arch/share/haskell -maxdepth 2 -name 'unregister.sh' -exec {} \;
   echo '==> Done.'
 }
 
 post_upgrade() {
   echo '==> All cabalized packages need to be reinstalled now.'
-  echo '==> See /usr/local/share/haskell/ for a tentative list of affected packages.'
+  echo '==> See /opt/arch/share/haskell/ for a tentative list of affected packages.'
 }

@@ -1,28 +1,28 @@
 post_install() {
-  if [ ! -f usr/local/etc/xml/catalog ]; then
-    xmlcatalog --noout --create usr/local/etc/xml/catalog
+  if [ ! -f opt/arch/etc/xml/catalog ]; then
+    xmlcatalog --noout --create opt/arch/etc/xml/catalog
   fi
   _NEW=`echo $1 | sed 's|\(.*\)\-.*|\1|'`
 
   xmlcatalog --noout --add "rewriteSystem" \
     "http://docbook.sourceforge.net/release/xsl/${_NEW}" \
     "/usr/share/xml/docbook/xsl-stylesheets-${_NEW}" \
-    usr/local/etc/xml/catalog
+    opt/arch/etc/xml/catalog
 
   xmlcatalog --noout --add "rewriteURI" \
     "http://docbook.sourceforge.net/release/xsl/${_NEW}" \
     "/usr/share/xml/docbook/xsl-stylesheets-${_NEW}" \
-    usr/local/etc/xml/catalog &&
+    opt/arch/etc/xml/catalog &&
 
   xmlcatalog --noout --add "rewriteSystem" \
     "http://docbook.sourceforge.net/release/xsl/current" \
     "/usr/share/xml/docbook/xsl-stylesheets-${_NEW}" \
-    usr/local/etc/xml/catalog &&
+    opt/arch/etc/xml/catalog &&
 
   xmlcatalog --noout --add "rewriteURI" \
     "http://docbook.sourceforge.net/release/xsl/current" \
     "/usr/share/xml/docbook/xsl-stylesheets-${_NEW}" \
-    usr/local/etc/xml/catalog
+    opt/arch/etc/xml/catalog
 }
 
 post_upgrade() {
@@ -32,10 +32,10 @@ post_upgrade() {
 
 post_remove() {
   _OLD=`echo $1 | sed 's|\(.*\)\-.*|\1|'`
-  xmlcatalog --noout --del "/usr/share/xml/docbook/xsl-stylesheets-${_OLD}" usr/local/etc/xml/catalog
+  xmlcatalog --noout --del "/usr/share/xml/docbook/xsl-stylesheets-${_OLD}" opt/arch/etc/xml/catalog
 
   if [ $(vercmp $1 1.72.0-3) -lt 0 ]; then
-    xmlcatalog --noout --del "/usr/share/xml/docbook" usr/local/etc/xml/catalog
-    xmlcatalog --noout --del "file:///usr/local/etc/xml/docbook" usr/local/etc/xml/catalog
+    xmlcatalog --noout --del "/usr/share/xml/docbook" opt/arch/etc/xml/catalog
+    xmlcatalog --noout --del "file:///opt/arch/etc/xml/docbook" opt/arch/etc/xml/catalog
   fi
 }

@@ -21,11 +21,11 @@ prepare() {
 build() {
   cd "$srcdir/${pkgname}-${pkgver}"
   # OSX getopt does not support longopt
-  export GETOPT="/usr/local/bin/getopt"
-  export XML_CATALOG_FILES="/usr/local/etc/xml/catalog"
+  export GETOPT="/opt/arch/bin/getopt"
+  export XML_CATALOG_FILES="/opt/arch/etc/xml/catalog"
 
-  ./configure BASH=/bin/bash --prefix=/usr/local \
-                             --mandir=/usr/local/share/man
+  ./configure BASH=/bin/bash --prefix=/opt/arch \
+                             --mandir=/opt/arch/share/man
   make
 }
 

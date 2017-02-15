@@ -1,7 +1,7 @@
 #!/bin/sh
 
 while true; do
-    response=$(/usr/local/bin/mysqladmin -uUNKNOWN_USER ping 2>&1) && break
+    response=$(/opt/arch/bin/mysqladmin -uUNKNOWN_USER ping 2>&1) && break
     echo "$response" | grep -q "mysqld is alive" && break
     echo "$response" | grep -q "Access denied for user" && break 
     sleep 1

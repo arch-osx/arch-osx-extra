@@ -14,8 +14,8 @@ source=(http://ftp.heanet.ie/mirrors/mariadb/mariadb-$pkgver/source/mariadb-$pkg
         mariadb-post.sh
         org.arch-osx.mariadb.plist)
 sha256sums=('21e1c7da1421146c69f5e8077333aaac06778a87046a1943ee4f449fbcefc00d'
-            '72455d27ee0439eb61173f12f1d3cc15de069d1246206585950d682f01041555'
-            '3cb7a000cd5842eafb8de6670666b7ba3eac30e5bcc9f793b8600cfb1610eef2')
+            '0e5f5fe0743d3112e3a45d3fdc52cb972dd2fd125f7c917b24515abcc3a27e03'
+            '82e87b89904877eea4c9e476d649e36d103b2bfecf94e6488b9dc1211165fb30')
 
 prepare() {
   cd $srcdir/$pkgbase-$_pkgver
@@ -32,10 +32,10 @@ build() {
     -DCMAKE_AR=/usr/bin/ar \
     -DCMAKE_RANLIB=/usr/bin/ranlib \
     -DBUILD_CONFIG=mysql_release \
-    -DCMAKE_INSTALL_PREFIX=/usr/local \
-    -DSYSCONFDIR=/usr/local/etc/mysql \
-    -DMYSQL_DATADIR=/usr/local/var/lib/mysql \
-    -DMYSQL_UNIX_ADDR=/usr/local/var/run/mysqld/mysqld.sock \
+    -DCMAKE_INSTALL_PREFIX=/opt/arch \
+    -DSYSCONFDIR=/opt/arch/etc/mysql \
+    -DMYSQL_DATADIR=/opt/arch/var/lib/mysql \
+    -DMYSQL_UNIX_ADDR=/opt/arch/var/run/mysqld/mysqld.sock \
     -DDEFAULT_CHARSET=utf8 \
     -DDEFAULT_COLLATION=utf8_general_ci \
     -DENABLED_LOCAL_INFILE=ON \
@@ -54,7 +54,7 @@ build() {
     -DWITH_SSL=system \
     -DWITH_LIBWRAP=OFF \
     -DWITH_JEMALLOC=ON \
-    -DCMAKE_EXE_LINKER_FLAGS='-ljemalloc' \
+    -DCMAKE_EXE_LINKER_FLAGS='-L/opt/arch/lib -ljemalloc' \
     -DWITH_EXTRA_CHARSETS=complex \
     -DWITH_EMBEDDED_SERVER=ON \
     -DWITH_ARCHIVE_STORAGE_ENGINE=1 \
@@ -87,14 +87,14 @@ package_libmariadbclient() {
     make -C $dir DESTDIR="$pkgdir" install
   done
 
-  install -d -m755 "$pkgdir"/usr/local/bin/
-  install -m755 scripts/mysql_config "$pkgdir"/usr/local/bin/mysql_config
-  install -d "$pkgdir"/usr/local/share/man/man1
+  install -d -m755 "$pkgdir"/opt/arch/bin/
+  install -m755 scripts/mysql_config "$pkgdir"/opt/arch/bin/mysql_config
+  install -d "$pkgdir"/opt/arch/share/man/man1
   for man in mysql_config mysql_client_test_embedded mysqltest_embedded; do
-    install -m644 "$srcdir"/$pkgbase-$_pkgver/man/$man.1 "$pkgdir"/usr/local/share/man/man1/$man.1
+    install -m644 "$srcdir"/$pkgbase-$_pkgver/man/$man.1 "$pkgdir"/opt/arch/share/man/man1/$man.1
   done
 
-  rm "$pkgdir"/usr/local/lib/libmysql{client,client_r,d}.a
+  rm "$pkgdir"/opt/arch/lib/libmysql{client,client_r,d}.a
 }
 
 package_mariadb-clients() {
@@ -108,13 +108,13 @@ package_mariadb-clients() {
   make -C client DESTDIR="$pkgdir" install
 
   # install man pages
-  install -d "$pkgdir"/usr/local/share/man/man1
+  install -d "$pkgdir"/opt/arch/share/man/man1
   for man in mysql mysqladmin mysqlcheck mysqldump mysqlimport mysqlshow mysqlslap; do
-    install -m644 "$srcdir"/$pkgbase-$_pkgver/man/$man.1 "$pkgdir"/usr/local/share/man/man1/$man.1
+    install -m644 "$srcdir"/$pkgbase-$_pkgver/man/$man.1 "$pkgdir"/opt/arch/share/man/man1/$man.1
   done
 
   # provided by mariadb
-  rm "$pkgdir"/usr/local/bin/{mysql_{plugin,upgrade},mysqlbinlog,mysqltest}
+  rm "$pkgdir"/opt/arch/bin/{mysql_{plugin,upgrade},mysqlbinlog,mysqltest}
 
 }
 
@@ -124,13 +124,13 @@ package_mariadb-clients() {
 #  depends=('perl')
 #
 #  cd build
-#  install -dm755 "$pkgdir"/usr/local/bin
-#  install -m755 scripts/mytop "$pkgdir"/usr/local/bin/mytop
+#  install -dm755 "$pkgdir"/opt/arch/bin
+#  install -m755 scripts/mytop "$pkgdir"/opt/arch/bin/mytop
 #}
 
 package_mariadb() {
   pkgdesc='Fast SQL database server, drop-in replacement for MySQL'
-  backup=('usr/local/etc/mysql/my.cnf')
+  backup=('opt/arch/etc/mysql/my.cnf')
   install=mariadb.install
   #depends=('mariadb-clients' 'inetutils' 'libaio' 'libxml2' 'pcre' 'jemalloc'
   #         'lz4' 'boost-libs' 'lzo' 'libevent')
@@ -143,29 +143,29 @@ package_mariadb() {
   cd build
   make DESTDIR="$pkgdir" install
 
-  install -dm755 "$pkgdir"/usr/local/etc/mysql
-  install -m644 "$pkgdir"/usr/local/share/mysql/my-medium.cnf "$pkgdir"/usr/local/etc/mysql/my.cnf
+  install -dm755 "$pkgdir"/opt/arch/etc/mysql
+  install -m644 "$pkgdir"/opt/arch/share/mysql/my-medium.cnf "$pkgdir"/opt/arch/etc/mysql/my.cnf
 
-  install -dm755 "$pkgdir"/usr/local/bin
-  install -m755 ../mariadb-post.sh "$pkgdir"/usr/local/bin/mysqld-post
+  install -dm755 "$pkgdir"/opt/arch/bin
+  install -m755 ../mariadb-post.sh "$pkgdir"/opt/arch/bin/mysqld-post
 
   # provided by libmariadbclient
   cd "$pkgdir"
-  rm usr/local/bin/{mysql_config,mysql_client_test_embedded,mysqltest_embedded}
-  rm usr/local/lib/libmysql*
-  rm -rf usr/local/include/
-  rm usr/local/share/man/man1/{mysql_config,mysql_client_test_embedded,mysqltest_embedded}.1
+  rm opt/arch/bin/{mysql_config,mysql_client_test_embedded,mysqltest_embedded}
+  rm opt/arch/lib/libmysql*
+  rm -rf opt/arch/include/
+  rm opt/arch/share/man/man1/{mysql_config,mysql_client_test_embedded,mysqltest_embedded}.1
 
   # provided by mariadb-clients
-  rm usr/local/bin/{mysql,mysqladmin,mysqlcheck,mysqldump,mysqlimport,mysqlshow,mysqlslap}
-  rm usr/local/share/man/man1/{mysql,mysqladmin,mysqlcheck,mysqldump,mysqlimport,mysqlshow,mysqlslap}.1
+  rm opt/arch/bin/{mysql,mysqladmin,mysqlcheck,mysqldump,mysqlimport,mysqlshow,mysqlslap}
+  rm opt/arch/share/man/man1/{mysql,mysqladmin,mysqlcheck,mysqldump,mysqlimport,mysqlshow,mysqlslap}.1
 
   # provided by mytop
-  rm usr/local/bin/mytop
+  rm opt/arch/bin/mytop
 
   # not needed
-  rm -rf usr/local/{data,mysql-test,sql-bench}
-  rm usr/local/share/man/man1/mysql-test-run.pl.1
+  rm -rf opt/arch/{data,mysql-test,sql-bench}
+  rm opt/arch/share/man/man1/mysql-test-run.pl.1
 
   mkdir -p "$pkgdir"/Library/LaunchDaemons
   install -m644 "$srcdir"/org.arch-osx.mariadb.plist "$pkgdir"/Library/LaunchDaemons

@@ -30,7 +30,7 @@ build() {
 
   #export PYTHON=python2
   ./configure \
-    --prefix=/usr/local \
+    --prefix=/opt/arch \
     --with-intl=system-icu \
     --without-npm \
     --shared-openssl \
@@ -53,12 +53,12 @@ package() {
   make DESTDIR="$pkgdir" install
 
   # install docs as per user request
-  install -d "$pkgdir"/usr/local/share/doc/nodejs
+  install -d "$pkgdir"/opt/arch/share/doc/nodejs
   cp -r doc/api/{*.html,assets} \
-    "$pkgdir"/usr/local/share/doc/nodejs
+    "$pkgdir"/opt/arch/share/doc/nodejs
 
   install -d -m755 \
-    "$pkgdir"/usr/local/share/licenses/nodejs
+    "$pkgdir"/opt/arch/share/licenses/nodejs
   install -m644 LICENSE \
-    "$pkgdir"/usr/local/share/licenses/nodejs/LICENSE
+    "$pkgdir"/opt/arch/share/licenses/nodejs/LICENSE
 }
