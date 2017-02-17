@@ -38,9 +38,9 @@ source=("https://downloads.haskell.org/~ghc/$pkgver/$pkgname-${pkgver}-src.tar.x
         http://ftpmirror.gnu.org/gmp/gmp-6.1.0.tar.bz2)
 noextract=("$pkgname-${pkgver}-src.tar.xz" "$pkgname-${pkgver}-x86_64-apple-darwin.tar.xz")
 sha256sums=('90fb20cd8712e3c0fbeb2eac8dab6894404c21569746655b9b12ca9684c7d1d2'
-            'ea185758d33b78674f572a17db7a6726142a82547b8702d321c3cedaee6d826c'
-            '5b122c9740355152008e09804d3dc7cd908b7878d9d3e7bbd90842a083c6f6f2'
-            '4abbbf8944af349889b1ddefbb945406e899f9453d3d5b18fd8410a7af05d6cb'
+            'e9da27df805378dc7bde8d45c58b720c33d27e4ca3af944daf3a60a1942d266a'
+            '4c639686acf98d657ff002fea82d95cafb04b29538b144546006797bede19c36'
+            '35b07eb3e773d7b90827496f1e4fef3b1e212fd9fa1ed633201327278fec7650'
             '06ec33056b927da5e68055147f165f873088f6812fe0c642c4c78c9a449fbc42'
             '498449a994efeba527885c10405993427995d3f86b8768d8cdf8d9dd7c6b73e8')
 
@@ -61,6 +61,8 @@ prepare() {
   LANG=en_US.UTF-8 bsdtar xf $pkgname-${pkgver}-src.tar.xz
 
   cd ghc-$pkgver
+
+  patch -p1 -i ../b7b130c5102948b38aaba723044288e16a80d492.diff
 
   # We select the following build profile:
   #   Full build with max optimisation and everything enabled (very slow build)
