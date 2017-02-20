@@ -1,5 +1,5 @@
 pkgname=jemalloc
-pkgver=4.1.0
+pkgver=4.4.0
 pkgrel=1
 pkgdesc='General-purpose scalable concurrent malloc implementation'
 arch=('x86_64')
@@ -8,8 +8,8 @@ url='http://www.canonware.com/jemalloc/'
 depends=('libc')
 #provides=('libjemalloc.so')
 optdepends=('perl: for jeprof')
-source=(http://www.canonware.com/download/jemalloc/$pkgname-$pkgver.tar.bz2)
-md5sums=('c4e53c947905a533d5899e5cc3da1f94')
+source=(https://github.com/jemalloc/jemalloc/releases/download/$pkgver/$pkgname-$pkgver.tar.bz2)
+md5sums=('81b59778e19696d99e2f7922820671b0')
 
 build() {
   cd $pkgname-$pkgver
