@@ -8,6 +8,7 @@ license=('custom')
 #makedepends=('libltdl' 'lcms2' 'libxt' 'fontconfig' 'libxext' 'ghostscript'
 #             'openexr' 'libwmf' 'librsvg' 'libxml2' 'liblqr' 'openjpeg2'
 #             'opencl-headers' 'opencl-icd-loader' 'libwebp' 'subversion' 'glu')
+makedepends=('lcms2' 'libxml2' 'openjpeg2')
 source=(http://www.imagemagick.org/download/ImageMagick-${pkgver%.*}-${pkgver##*.}.tar.xz{,.asc}
         perlmagick.rpath.patch)
 sha1sums=('613cc1502edc9ffde43f80887776cc3fcc1fac71'
@@ -19,27 +20,37 @@ prepare() {
   cd ImageMagick-${pkgver%.*}-${pkgver##*.}
   sed -i -e '/AC_PATH_XTRA/d' configure.ac
   #autoreconf --force --install
-  patch -p0 -i "${srcdir}/perlmagick.rpath.patch"
+  #patch -p0 -i "${srcdir}/perlmagick.rpath.patch"
 }
 
 build() {
   cd ImageMagick-${pkgver%.*}-${pkgver##*.}
-  [[ $CARCH = "i686" ]] && EXTRAOPTS="--with-gcc-arch=i686"
-  [[ $CARCH = "x86_64" ]] && EXTRAOPTS="--with-gcc-arch=x86-64"
+  #[[ $CARCH = "i686" ]] && EXTRAOPTS="--with-gcc-arch=i686"
+  #[[ $CARCH = "x86_64" ]] && EXTRAOPTS="--with-gcc-arch=x86-64"
+  export CFLAGS="$CFLAGS -I/opt/arch/include"
+  export LDFLAGS="$LDFLAGS -L/opt/arch/lib"
+  export LIBS="-lz"
 
   ./configure --prefix=/opt/arch --sysconfdir=/opt/arch/etc \
-    --without-modules \
     --disable-osx-universal-binary \
     --disable-dependency-tracking \
     --disable-silent-rules \
     --enable-shared \
     --enable-static \
-    $EXTRAOPTS
-    #--enable-hdri --with-wmf --with-openexr --with-xml \
-    #--with-webp --with-gslib --with-gs-font-dir=/opt/arch/share/fonts/Type1 \
-    #--with-perl --with-perl-options="INSTALLDIRS=vendor" --with-lqr --with-rsvg \
-    #--enable-opencl --with-openjp2 --without-gvc --without-djvu --without-autotrace \
-    #--without-jbig --without-fpx --without-dps --without-fftw
+    $EXTRAOPTS \
+    --with-modules \
+    --enable-hdri \
+    --with-perl --with-perl-options="INSTALLDIRS=vendor" \
+    --with-lqr \
+    --with-openjp2 \
+    --without-gvc --without-djvu --without-autotrace \
+    --without-jbig --without-fpx --without-dps --without-fftw
+    #--enable-opencl
+    #--with-webp \
+    #--with-wmf --with-openexr --with-xml \
+    #--with-rsvg \
+    #--with-gslib --with-gs-font-dir=/opt/arch/share/fonts/Type1 \
+
   make
 }
 
