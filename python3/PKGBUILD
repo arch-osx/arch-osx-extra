@@ -1,6 +1,6 @@
 pkgname=python3
 pkgver=3.5.1
-pkgrel=2
+pkgrel=3
 _pybasever=3.5
 pkgdesc="Next generation of the python high-level scripting language"
 arch=('x86_64')
@@ -17,8 +17,6 @@ optdepends=('python3-setuptools'
             'xz: for lzma'
             'tk: for tkinter')
 options=('!makeflags')
-provides=('python3')
-replaces=('python3')
 source=("http://www.python.org/ftp/python/${pkgver%rc*}/Python-${pkgver}.tar.xz"
         dont-make-libpython-readonly.patch)
 sha1sums=('0186da436db76776196612b98bb9c2f76acfe90e'
