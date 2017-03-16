@@ -1,7 +1,7 @@
 pkgbase=imagemagick
 pkgname=('imagemagick' 'imagemagick-doc')
 pkgver=6.9.8.0
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 url="http://www.imagemagick.org/"
 license=('custom')
@@ -31,7 +31,7 @@ build() {
   export LDFLAGS="$LDFLAGS -L/opt/arch/lib"
   export LIBS="-lz"
 
-  ./configure --prefix=/opt/arch --sysconfdir=/opt/arch/etc \
+  ./configure --prefix=/opt/arch --sysconfdir=/opt/arch/etc --mandir=/opt/arch/share/man \
     --disable-osx-universal-binary \
     --disable-dependency-tracking \
     --disable-silent-rules \
@@ -40,14 +40,14 @@ build() {
     $EXTRAOPTS \
     --with-modules \
     --enable-hdri \
-    --with-perl --with-perl-options="INSTALLDIRS=vendor" \
     --with-lqr \
     --with-openjp2 \
     --without-gvc --without-djvu --without-autotrace \
-    --without-jbig --without-fpx --without-dps --without-fftw
-    #--enable-opencl
+    --without-jbig --without-fpx --without-dps --without-fftw \
+    --enable-opencl \
+    --with-wmf --with-openexr --with-xml \
+    #--with-perl --with-perl-options="INSTALLDIRS=vendor" \
     #--with-webp \
-    #--with-wmf --with-openexr --with-xml \
     #--with-rsvg \
     #--with-gslib --with-gs-font-dir=/opt/arch/share/fonts/Type1 \
 
